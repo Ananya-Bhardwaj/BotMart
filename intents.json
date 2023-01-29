@@ -1,0 +1,52 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["hi", "how are you", "is anyone there?", "hello", "good day"],
+         "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
+         "context_set": ""
+        },
+        {"tag": "goodbye",
+         "patterns": ["bye", "see you later", "goodbye"],
+         "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."]
+        },
+        {"tag": "thanks",
+         "patterns": ["thanks", "thank you", "that's helpful"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure"]
+        },
+        {"tag": "hours",
+         "patterns": ["what hours are you open?", "what are your hours?", "when are you open?" ],
+         "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
+        },
+        {"tag": "mopeds",
+         "patterns": ["which mopeds do you have?", "what kinds of mopeds are there?", "what do you rent?" ],
+         "responses": ["We rent Yamaha, Piaggio and Vespa mopeds", "We have Piaggio, Vespa and Yamaha mopeds"]
+        },
+        {"tag": "payments",
+         "patterns": ["do you take credit cards?", "do you accept Mastercard?", "are you cash only?", "do you accept credit cards?", "what is the mode of payment?", "how to pay for products" ],
+         "responses": ["We accept VISA, Mastercard, Maestro and AMEX", "We accept most of the major credit cards", "We accept all credit cards"]
+        },
+        {"tag": "opentoday",
+         "patterns": ["are you open today?", "when do you open today?", "what are your hours today?"],
+         "responses": ["We're open every day from 9am-9pm", "Our hours are 9am-9pm every day"]
+        },
+        {"tag": "rental",
+         "patterns": ["can we rent a moped?", "i'd like to rent a moped", "how does this work?" ],
+         "responses": ["Are you looking to rent today or later this week?"],
+         "context_set": "rentalday"
+        },
+        {"tag": "categories", 
+          "patterns": ["what can i order?", "what categories of products you offer?", "what categories of items can I buy?"]
+          "responses": ["We offer products from two categories currently namely ", "We have products beloning to two categories as of now namely "]
+        },
+
+  {"tag": "Invoice", 
+    "patterns":["I would like to pay" , "Send me the bill" ,"what is the amount?", "what is the cost?" ,"how much does this cost?" ,"show me the bill"
+   ]
+    "response": ["This is the amount of bill that you have to pay" , "Pay this much"]
+},
+  {"tag":"Categories",
+  "patterns":["what all you have " , "what all this shop sells" , "i want to buy"]
+  "response": ["We sell in 4 categories, electronics,jewellery, mens clothing , womens clothing"]},
+  {"tag": "End" , 
+  "patterns":["Thankyou so much for shopping! visit us again"]},
+  
+}
