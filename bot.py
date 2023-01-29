@@ -5,6 +5,7 @@ import keys
 import json
 import telegram.bot
 import random
+import main
 import pymongo
 
 BOT_KEY = keys.token
