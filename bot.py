@@ -11,22 +11,21 @@ BOT_KEY = keys.token
 #TOKEN = keys.unlimit
 TOKEN = keys.glocal
 
+#this defines the start command and sets three keyboard buttons for the bot
 def start(update: Update, context: CallbackContext):
     welcome_message = '''Hello
 Welcome to this bot!'''
     update.message.reply_text(welcome_message, parse_mode="html")
     buttons=[[KeyboardButton("Categories")] , [KeyboardButton("Support")], [KeyboardButton("Orders")]]
     context.bot.send_message(chat_id=update.effective_chat.id, reply_markup=ReplyKeyboardMarkup(buttons), text = "This bot would allow you to order products! Click on Categories to know more")
-
-# def invoice_price(price: int):
     
-
+#this is handling payements
 def pre_checkout_handler(update: Update, context: CallbackContext):
     """https://core.telegram.org/bots/api#answerprecheckoutquery"""
     query = update.pre_checkout_query
     query.answer(ok=True)
 
-
+#this sends a recipt telling about successful payment
 def successful_payment_callback(update: Update, context):
     col = get_collection()
     receipt = update.message.successful_payment
@@ -36,7 +35,9 @@ def successful_payment_callback(update: Update, context):
                    "datetime": str(datetime.datetime.now())})
     print_col(col)
     update.message.reply_text("Thank you for your purchase!")
-   
+    
+    
+#this handles the messages that are received with buttons    
 def message_handler(update: Update, context: CallbackContext):
     category="Categories"
     help="Support"
@@ -51,28 +52,15 @@ Click on the categories button to check out the various categories available'''
         #status and shipped in time 
         context.bot.send_message(chat_id = update.effective_chat.id, text="Your order has been confirmed and will be shipped at the earliest") 
 
-
-def donate(update: Update, context: CallbackContext):
-    out = context.bot.send_invoice(
-        chat_id=update.message.chat_id,
-        title="Test pay",
-        description="Give money here.",
-        payload="test",
-        provider_token=TOKEN,
-        currency="INR",
-        prices=[LabeledPrice("Give", 50000)],
-        #2 zero less hoke print hota hai this amounts to 500
-        need_name=False,
-    )
-
-
+#this fetches product data for a given category from fake store api
 def sendProduct(url: str)->dict:
     response = requests.get(url)
     #x = json.loads(response.json())
     l = response.json()
     random_num = random.choice(l)
     return random_num
-    
+
+#this handles the queries that is for categories
 def query_handler(update: Update, context: CallbackContext):
     query = update.callback_query.data
     update.callback_query.answer()
@@ -188,44 +176,8 @@ def query_handler(update: Update, context: CallbackContext):
         context.bot.send_message(chat_id = update.effective_chat.id, text = "Order confirmed")
 
 
-    if 'yes' in query:
-        out = context.bot.send_invoice(
-        chat_id=update.message.chat_id,
-        title="Test pay",
-        description="Give money here.",
-        payload="test",
-        provider_token=TOKEN,
-        currency="INR",
-        prices=[LabeledPrice("Give", 50000)],
-        #2 zero less hoke print hota hai this amounts to 500
-        need_name=False,
-    )
-
-
-    # otext = f'''{title}
-    #         {desc}'''
-    #update.message.reply_text(text, parse_mode="html")
-    
-    # #sendphotos(message, image)
-    # out = context.bot.send_invoice(
-    #     chat_id=update.message.chat_id,
-    #     title="Test pay",
-    #     description="Give money here.",
-    #     payload="test",
-    #     provider_token=TOKEN,
-    #     currency="INR",
-    #     prices=[LabeledPrice("Give", price)],
-    #     #2 zero less hoke print hota hai this amounts to 500
-    #     need_name=False,
-    # )
-    # r = update.pre_checkout_query.answer(ok=True)
-
-
-# def category():
-#      message_handler(update, context)
-
-
 if __name__ == "__main__":
+    #add handlers
     updater = Updater(BOT_KEY, use_context=True)
     updater.dispatcher.add_handler(CommandHandler("start", start))
     updater.dispatcher.add_handler(CommandHandler("payment", donate))
